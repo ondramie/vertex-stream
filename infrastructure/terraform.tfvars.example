@@ -1,0 +1,8 @@
+# Example Terraform variables file
+# Copy this file to terraform.tfvars and update the values
+
+project_id      = "your-gcp-project-id"
+region          = "us-central1"
+zone            = "us-central1-a"
+service_name    = "vertex-stream"
+container_image = "gcr.io/your-project-id/vertex-stream:latest"
