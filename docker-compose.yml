@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: vertex-mediamtx
+    ports:
+      - "8554:8554"
+      - "8888:8888"
+      - "8889:8889"
+      - "8189:8189/udp"
+    restart: unless-stopped
+    networks:
+      - vertex-network
+
+  webcam-stream:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vertex-webcam
+    environment:
+      - RTSP_SERVER=mediamtx:8554
+      - STREAM_NAME=webcam
+      - GCP_PROJECT=${GCP_PROJECT}
+      - GCP_REGION=${GCP_REGION:-us-central1}
+    volumes:
+      - /dev/video0:/dev/video0
+    devices:
+      - /dev/video0:/dev/video0
+    privileged: true
+    depends_on:
+      - mediamtx
+    networks:
+      - vertex-network
+
+networks:
+  vertex-network:
+    driver: bridge

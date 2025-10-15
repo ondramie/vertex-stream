@@ -1,7 +1,16 @@
-# Variables for vertex-stream infrastructure
-
 variable "project_id" {
-  description = "The Google Cloud project ID"
+  description = "The Google Cloud project ID (must be globally unique)"
+  type        = string
+}
+
+variable "project_name" {
+  description = "The Google Cloud project display name"
+  type        = string
+  default     = "Vertex AI Vision Stream"
+}
+
+variable "billing_account" {
+  description = "The Google Cloud billing account ID"
   type        = string
 }
 

@@ -1,16 +1,19 @@
-# Outputs for vertex-stream infrastructure
-
-output "service_url" {
-  description = "URL of the deployed Cloud Run service"
-  value       = google_cloud_run_service.vertex_stream.status[0].url
+output "project_id" {
+  description = "The Google Cloud project ID"
+  value       = google_project.vertex_stream.project_id
 }
 
-output "service_name" {
-  description = "Name of the Cloud Run service"
-  value       = google_cloud_run_service.vertex_stream.name
+output "project_number" {
+  description = "The Google Cloud project number"
+  value       = google_project.vertex_stream.number
 }
 
-output "service_location" {
-  description = "Location of the Cloud Run service"
-  value       = google_cloud_run_service.vertex_stream.location
+output "service_account_email" {
+  description = "Email of the Vertex AI service account"
+  value       = google_service_account.vertex_ai_admin.email
+}
+
+output "region" {
+  description = "The Google Cloud region"
+  value       = var.region
 }

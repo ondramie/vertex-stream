@@ -40,3 +40,10 @@ go.work.sum
 .terraform.lock.hcl
 terraform.tfvars
 *.auto.tfvars
+
+# Google Cloud credentials - NEVER commit these!
+credentials.json
+*-credentials.json
+service-account*.json
+key.json
+gcp-key.json

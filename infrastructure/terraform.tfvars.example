@@ -1,7 +1,13 @@
 # Example Terraform variables file
 # Copy this file to terraform.tfvars and update the values
 
-project_id      = "your-gcp-project-id"
+# Get your billing account ID with: gcloud billing accounts list
+billing_account = "YOUR_BILLING_ACCOUNT_ID"
+
+# Project ID must be globally unique (6-30 chars, lowercase, numbers, hyphens)
+project_id      = "vertex-stream-prod-12345"
+project_name    = "Vertex AI Vision Stream"
+
 region          = "us-central1"
 zone            = "us-central1-a"
 service_name    = "vertex-stream"

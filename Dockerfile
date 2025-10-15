@@ -1,31 +1,19 @@
-# Build stage
 FROM golang:1.21-alpine AS builder
 
 WORKDIR /app
 
-# Copy go mod and sum files
-COPY go.mod go.sum ./
-
-# Download dependencies
+COPY go.mod ./
 RUN go mod download
 
-# Copy source code
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webcam-stream .
 
-# Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
-
-# Final stage
 FROM alpine:latest
 
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ffmpeg ca-certificates
+
 WORKDIR /root/
 
-# Copy the binary from builder stage
-COPY --from=builder /app/main .
+COPY --from=builder /app/webcam-stream .
 
-# Expose port
-EXPOSE 8080
-
-# Run the application
-CMD ["./main"]
+CMD ["./webcam-stream"]
